@@ -1,0 +1,15 @@
+Table - The board.
+Tile - the square r the box.
+q_mark - players suspect.
+flag - player's imposter.
+mine - the bombs r the explosives r the balloons.
+
+List:
+	int r,c;                //rows and columns
+	int n;                  //number of mine
+	int number[r][c];
+	bool bomb [r][c];
+	bool vis [r][c];
+	bool flag [r][c];
+	bool qmark [r][c];
+  bool loss;
