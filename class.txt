@@ -9,6 +9,9 @@ class Table
     bool flag[r][c];
     short number[r][c];
     bool loss;
+    char toPrint[r][c]; // we simply need to print this array. It will store characters that will be shown. We need to make changes to this array too.
+    // like for bomb it will show 'B', For the number it will show the '1', '2', etc. For the empty boxes (which have neither bomb nor any bomb surrounded)it can show 'O' or '0' 
+    // and for boxes yet to be opened it can show 'T' (or any other character for that matter)
     
     public:
     Table(int rows, int cols, int num, int i_ex, int j_ex)
