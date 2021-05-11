@@ -1,0 +1,62 @@
+class Table
+{
+    private:
+    int r,c;
+    int num_mines;
+    bool bomb[r][c];
+    bool visible[r][c];
+    bool q_mark[r][c];
+    bool flag[r][c];
+    short number[r][c];
+    bool loss;
+    
+    public:
+    Table(int rows, int cols, int num, int i_ex, int j_ex)
+    {
+        r=rows;
+        c=cols;
+        num_mines=num;
+        set_mines(i_ex,j_ex);
+        set_num();
+    }
+    
+    void set_mines(int i,int j)
+    {
+	//fill this up
+    }
+    void set_num()
+    {
+	//fill this up
+    }
+    void flag(int i,int j)
+    {
+        flag[i][j]=true;
+    }
+    void question(int i,int j)
+    {
+        q_mark[i][i]=true;
+    }
+    void reveal_from(int i, int j)
+    {
+	if(bomb[i][j])
+        {
+            loss=true;return;
+        }
+	//fill this up        
+    }
+    
+    boolean check_win()
+    {
+	//fill this up    
+    }
+    boolean check_loss()
+    {
+	return loss;       
+    }
+    
+    void print()
+    {
+	//fill this up        
+    }
+    
+}
