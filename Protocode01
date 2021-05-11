@@ -49,23 +49,41 @@ class table
            if (y-1>=0 && num[x][y-1]!=-1) {num[x][y-1]++;}
            }
          }
+    }
          
-      void sweep(int x, int y)
-        {if (x=0||y=0||x=r||y=c) return();
-         sweepcount++; vis[x][y]==true;
-         if (num[x][y]!=0) return();
-         sweep(x+1,y);
-         sweep(x,y+1);
-         sweep(x-1,y);
-         sweep(x,y-1);
+   void sweep(int x, int y)
+     {if (x=0||y=0||x=r||y=c) return();
+      sweepcount++; vis[x][y]==true;
+      if (num[x][y]!=0) return();
+      sweep(x+1,y);
+      sweep(x,y+1);
+      sweep(x-1,y);
+      sweep(x,y-1);
+     }
+   void sweeper(int x, int y)
+     {vis[x][y]=true;sweepcount++;
+      if (mine[x][y]) loss=!loss;
+      else if (num[x][y]) {return();}
+      else sweep[x][y];
+      return();         
+     }
+        
+   void view()
+     {for (int i=0; i<r; i++)
+        {for (int j=0; j<c; j++)
+          cout<<"+-";
+         cout<<'+'<<endl;
+         for (int j=0; j<c; j++)
+          {cout<<'|';
+           if (vis[i][j])cout<<num[i][j];
+           else cout<<' ';
+          }
+          cout<<'|';
         }
-      void sweeper(int x, int y)
-        {vis[x][y]=true;sweepcount++;
-         if (mine[x][y]) loss=!loss;
-         else if (num[x][y]) {return();}
-         else sweep[x][y];
-         return();         
-        }
+     }
+     for (int j=0; j<c; j++)
+          cout<<"+-";
+     cout<<'+'<<endl;
       
    }
    
