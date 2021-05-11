@@ -3,11 +3,11 @@ class Table
     private:
     int r,c;
     int num_mines;
-    bool bomb[r][c];
-    bool visible[r][c];
-    bool q_mark[r][c];
-    bool flag[r][c];
-    short number[r][c];
+    bool bomb[r][c]; // array to store which element has bomb
+    bool visited[r][c]; // array to show whether the given box is yet opened or not // remanmed to visited
+    bool q_mark[r][c]; // array to show which element has question mark
+    bool flag[r][c]; // array to show which element has a flag
+    short number[r][c]; // array to store number of bombs in the 8 adjacent boxes. -1 for bombed block and 0 for block with no bomb adjacent
     bool loss;
     char toPrint[r][c]; // we simply need to print this array. It will store characters that will be shown. We need to make changes to this array too.
     // like for bomb it will show 'B', For the number it will show the '1', '2', etc. For the empty boxes (which have neither bomb nor any bomb surrounded)it can show 'O' or '0' 
