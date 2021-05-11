@@ -1,0 +1,40 @@
+class table
+{private:
+	int r,c;
+	int n;
+	int number[r][c];
+	bool bomb [r][c];
+	bool vis [r][c];
+	bool flag [r][c];
+	bool qmark [r][c];
+public:
+	table()
+	{cout<<"Enter the number of rows and columns: ";
+	cin>>r>>c;
+	cout<<"Enter the number of mines: ";
+	cin>>n;
+	clrscr();
+	cout<<"Enter the first tile selection: ";
+	int r1,c1;
+	for (int j=0;j<1;)
+		{cin>>r1>>c1;
+		if(!(r1<r && r1>=0)) cout<<"invalid input!!!";
+		else if(!(c1<c && c1>=0)) cout<<"invalid input!!!";
+		else j++;
+		}
+
+	Game_initializor(r1,c1,n);
+	
+	bomb[r1][c1]=false;
+	
+	reveal(r1,c1);
+
+	}
+  
+  /***********************************************************
+  Guys check it once Game_initializor(int,int,int) assumes (r1,c1) as a bombb and fixes n more bombs and later bomb at (r1,c1)is removed.
+  This can be written in the constructor itself as it will be used only once.
+  reveal(int,int) takes reveals the tile at (int,int). This function is a bit complex one ig since it will reveal the number at that
+  coordinate and checks the nearby co ordinates if it is 0.
+  ************************************************************/
+  
