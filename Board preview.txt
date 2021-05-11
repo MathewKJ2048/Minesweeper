@@ -1,0 +1,41 @@
+class board
+
+variables:
+r,c : rows and columns
+four r*c boolean matrices
+1st matrix: true if cell has bomb, false otherwise
+2nd matrix: true if opened, false otherwise
+3rd matrix: true if flagged by user, false otherwise
+4rth matrix: true if "?" by user, false otherwise
+one short matrix: each cell holds number of bombs in surrounding cells alone.
+                  number on cells with bombs does not matter (can we use -1 for this?)
+
+n: number of mines
+
+methods:
+constructor(int r,int c): calls set_mines and set_num()
+
+void set_num(): sets numbers matrix
+number at bombed cells is upto discretion of author. (use -1?)
+
+void set_mines(int i,int j): sets n mines (randomly?)
+I do not think mines are set in a truly random way.
+the authour of this function will have to look into that
+coordinates i,j have to be excluded
+
+void flag(int i,int j) : flags (i,j)th box
+
+void open(int i, int j) : opens (i,j)th box and surrounding boxes as required
+there is some logic which determines how many and which boxes to open
+The authour need to derive it by looking at patterns in the game
+if (i,j) is a bomb, open that box alone
+
+boolean check_win() : checks if game is won
+check if all squares other than bombs are opened
+
+boolean check_loss() : checks if game is lost
+checks if any bomb square is open
+
+void print(): prints the board
+extravagant graphics not necessary rn
+a simple text based print will suffice
