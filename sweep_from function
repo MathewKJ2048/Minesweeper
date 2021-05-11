@@ -1,0 +1,63 @@
+//This function inputs the position entered by the user and accordingly modifies the toPrint array (which is to be printed)
+
+
+char ch[] ={'0','1','2','3','4','5','6','7','8'}; // will be used (can be a global variable)
+void sweep_util(int i, int j) // a utility function which just accepts a zero location and flood fills all the zeros
+{
+  if(i<0||i>=r||j<0||j>=c)
+  {
+    return;
+  }
+  visited[i][j]=true; // setting the visited array (or visible array)
+  if(number[i][j]!=0)
+  {
+    return;
+  }
+  number[i][j]=10; //changing the zeros to 10 (which helps us to identify the zeros which have opened)
+  toPrint[i][j] ='O'; //changing the toPrint array which is printed at the end
+  sweep_util(i-1,j);
+  sweep_util(i+1,j);
+  sweep_util(i,j-1);
+  sweep_util(i,j+1);
+}
+  
+void sweep_from(int i, int j) // the main function which tackles all inputs of position (which are not visited) other that flag and question mark
+//assuming that flag and question mark functions are called before hand only and the given position cannot have those two.
+{
+  visited[i][j]=true;
+  
+  if(bomb[i][j])
+  {
+    toPrint[i][j]='B';
+    loss=true;
+    return;
+  }
+  //bomb tackled
+  
+  // now handling numbers
+  if(number[i][j]!=0)
+  {
+    toPrint[i][j]=ch[number[i][j]];
+    return;
+   }
+   
+   //now handling only remaining case i.e. 0
+   sweep_util(i,j); //this will only flood fill zeroes
+   
+   int l,m;
+   //now adding boundary elements of zero flood by checking neighbours of each element. If the neighbouring element is found to be 10 i.e. visited zero, it's neighbor must be visible
+   for(l=0;i<r;i++)
+   {
+    for(m=0;m<c;m++)
+    {
+      if(number[i-1][j-1]==10||number[i-1][j]==10||number[i-1][j+1]==10||number[i][j-1]==10||number[i][j+1]==10||number[i+1][j-1]==10||number[i+1][j]==10||number[i+1][j+1]==10)
+      {
+        visited[l][m]=true;
+        toPrint[l][m]=ch[number[i][j]];
+      }
+    }
+  }// closing l loop
+} // closed void sweep_from function
+  
+  
+    
