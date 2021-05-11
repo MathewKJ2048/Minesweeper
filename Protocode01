@@ -51,13 +51,20 @@ class table
          }
          
       void sweep(int x, int y)
-        {if (num[x][y]==-1||
-         
+        {if (x=0||y=0||x=r||y=c) return();
+         sweepcount++; vis[x][y]==true;
+         if (num[x][y]!=0) return();
+         sweep(x+1,y);
+         sweep(x,y+1);
+         sweep(x-1,y);
+         sweep(x,y-1);
         }
       void sweeper(int x, int y)
-        {
-         
-         
+        {vis[x][y]=true;sweepcount++;
+         if (mine[x][y]) loss=!loss;
+         else if (num[x][y]) {return();}
+         else sweep[x][y];
+         return();         
         }
       
    }
