@@ -49,6 +49,8 @@ class table
            if (y-1>=0 && num[x][y-1]!=-1) {num[x][y-1]++;}
            }
          }
+         
+       mine[r1][c1]=!mine[r1][c1];
     }
          
    void sweep(int x, int y)
@@ -77,14 +79,49 @@ class table
           {cout<<'|';
            if (vis[i][j])cout<<num[i][j];
            else cout<<' ';
-          }
-          cout<<'|';
-        }
+         }
+         cout<<'|';
      }
-     for (int j=0; j<c; j++)
-          cout<<"+-";
-     cout<<'+'<<endl;
-      
-   }
+      for (int j=0; j<c; j++)
+         cout<<"+-";
+      cout<<'+'<<endl;
+      return();
+     }
+   };
    
    
+int main()
+{int x,y;char ch
+ for (int z=0;z<1;)
+  {
+   cin>>x>>y;
+   table t1(x,y);
+   for (int z1=0;z<1;)
+    {cin>>x>>y>>ch;                                                   \\write the codes for qmarks and flags as of now sweep is done and to be reviewed.
+     if (ch=='s')
+     t1.sweeper(x,y);
+     else if (ch=='?')
+     {
+     \\************************************************* Fill here.
+     }
+     else if (ch=='f')
+     {
+     \\************************************************* Fill here.
+     }
+     
+     t1.view(x,y);
+     
+    }
+  }
+}
+
+
+
+
+\*****************************************************************************************
+And u have to come out of the loop when u lose r win find a way.
+Fill those codes and surely u have made some errors on that if condition part
+******************************************************************************************\
+
+
+
