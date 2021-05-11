@@ -41,7 +41,7 @@ class Table
         q_mark[i][i]=true;
 	toPrint[i][j]='?';
     }
-    void reveal_from(int i, int j)
+    void sweep_from(int i, int j)
     {
 	if(bomb[i][j])
         {
