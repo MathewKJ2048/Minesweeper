@@ -9,6 +9,12 @@ class Minefield
     bool is_flagged[15][15];     //true if flagged, false otherwise
     short number[15][15];        //stores total number of mines in the eight surrounding tiles
     char state[15][15];          //store info which can be revealed to player
+		// this array holds 'B' if a bomb is to be shown
+	// it holds 'O' for a open tile which has no number
+	// it holds '1', '2'... and so one for numers to be displayed
+	// it holds '?' for question mark
+	// it holds 'F' for flag
+	
     bool loss;                   //becomes true when game is lost, false till then
     int num_swept;               //holds number of swept tiles
     int num_flagged;             //holds number of flags used
