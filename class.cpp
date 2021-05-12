@@ -57,16 +57,16 @@ class Minefield
     }
     void sweep_from(int i, int j)  //mutator
     {
-	    //fill this up
-	    //floodfill 0s
-	    //deflag and de_q_mark swept squares manually
-	    //ensure state is updated
-	    //ensure num_swept is updated
+	//fill this up
+	//floodfill 0s
+	//deflag and de_q_mark swept squares manually
+	//ensure state is updated
+	//ensure num_swept is updated
     }
     
     bool check_win()  //accessor
     {
-         f(num_swept+num_mines==r*c)return true;
+         if(num_swept+num_mines==r*c)return true;
          else return false;
     }
     bool check_loss()  //accessor
@@ -80,9 +80,9 @@ class Minefield
     
     void print()
     {
-	    //fill this up
-	    //use ASCII characters alone to represent set_board
-	    //graphics can be added later
+	 //fill this up
+	 //use ASCII characters
+	 //graphics can be added later
     }
     
 };
