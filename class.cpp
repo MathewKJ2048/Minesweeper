@@ -32,14 +32,30 @@ class Minefield
     
     void flag(int i,int j)  //mutator
     {
-	is_q_marked[i][j]=false;
-        if(!is_swept[i][j] && !is_flagged[i][j])
+        if(!is_swept[i][j])
 	{
+	    clear(i,j);
 	    num_flagged+=1;
             is_flagged[i][j]=true;
 	    //update state
 	}
     }
+    void q_mark(int i,int j)  //mutator
+    {
+        if(!is_swept[i][j])
+	{
+            clear(i,j);
+            is_q_marked[i][j]=true;
+	    //update state
+	}	
+    }
+    void clear(int i,int j)   //mutator
+    {
+	 if(is_flagged[i][j]){flag[i][j]=false;num_flagged-=1;}
+	 if(is_qmark[i][j]){q_mark[i][j]=false;}
+    }
+	    
+    /*
     void deflag(int i,int j)  //mutator
     {
         if(!is_swept[i][j] && is_flagged[i][j])
@@ -49,15 +65,6 @@ class Minefield
 	    //update state
 	}
     }
-    void q_mark(int i,int j)  //mutator
-    {
-        if(!is_swept[i][j])
-	{
-            if(is_flagged[i][j])deflag(i,j);
-            is_q_marked[i][j]=true;
-	    //update state
-	}	
-    }
     void de_q_mark(int i,int j)  //mutator
     {
         if(!is_swept[i][j])
@@ -65,7 +72,7 @@ class Minefield
             is_q_marked[i][j]=false;
 	    //update state
 	}
-    }
+    }*/
     void sweep_from(int i, int j)  //mutator
     {
 	//fill this up
