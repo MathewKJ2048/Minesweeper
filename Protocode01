@@ -83,7 +83,8 @@ class table
     }
         
    void view()
-     {for (int i=0; i<r; i++)
+     {clrscr();
+      for (int i=0; i<r; i++)
         {for (int j=0; j<c; j++)
           cout<<"+-";
          cout<<'+'<<endl;
@@ -123,8 +124,8 @@ int main()
       t1.view();
      }
      else if (ch=='f')
-     {
-     \\************************************************* Fill here.
+     {t1.flag[x][y];
+      t1.view();
      }
      
      t1.view(x,y);
