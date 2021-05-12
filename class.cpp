@@ -8,16 +8,16 @@ class Minefield
     bool is_q_marked[15][15];    //true if q_marked, false otherwise
     bool is_flagged[15][15];     //true if flagged, false otherwise
     short number[15][15];        //stores total number of mines in the eight surrounding tiles
-    char state[15][15];          //store info which can be revealed to player
-		// this array holds 'B' if a bomb is to be shown
-	// it holds 'O' for a open tile which has no number
-	// it holds '1', '2'... and so one for numers to be displayed
-	// it holds '?' for question mark
-	// it holds 'F' for flag
-	
+    char state[15][15];          //stores info which can be revealed to player
     bool loss;                   //becomes true when game is lost, false till then
     int num_swept;               //holds number of swept tiles
     int num_flagged;             //holds number of flags used
+    //legend
+    char flag_char = 'F';
+    char q_mark_char = '?';
+    char unswept_char = 'U';
+    char swept_char = 'S';
+    char mine_char = '*';
 	
     void set_field(int i_ex,int j_ex)   //mutator
     {
@@ -39,26 +39,37 @@ class Minefield
     void flag(int i,int j)  //mutator
     {
         if(!is_swept[i][j])
-	{
-	    clear(i,j);
-	    num_flagged+=1;
-            is_flagged[i][j]=true;
-	    //update state
-	}
+	    {
+	       clear(i,j);
+	       num_flagged+=1;
+               is_flagged[i][j]=true;
+	       state[i][j]=flag_char;
+	    }
     }
     void q_mark(int i,int j)  //mutator
     {
         if(!is_swept[i][j])
-	{
+    	{
             clear(i,j);
             is_q_marked[i][j]=true;
-	    //update state
+	    state[i][j]=q_mark_char;
 	}	
     }
     void clear(int i,int j)   //mutator
     {
-	 if(is_flagged[i][j]){is_flagged[i][j]=false;num_flagged-=1;}
-	 if(is_q_marked[i][j]){is_q_marked[i][j]=false;}
+        if(!is_swept[i][j])
+        {
+	       if(is_flagged[i][j])
+	       {
+	           is_flagged[i][j]=false;
+	           num_flagged-=1;
+	       }
+	       if(is_q_marked[i][j])
+	       {
+	           is_q_marked[i][j]=false;
+	       }
+	       state[i][j]=unswept_char;
+        }
     }
     void sweep_from(int i, int j)  //mutator
     {
@@ -85,10 +96,11 @@ class Minefield
     
     void print()
     {
-	 //fill this up
-	 //use ASCII characters
-	 //graphics can be added later
+	 for(int i=0;i<r;i++)
+	 {
+	       for(int j=0;j<c;j++)cout<<state[i][j]<<" ";
+	       cout<<"\n";
+	 }
     }
     
 };
-
