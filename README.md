@@ -10,8 +10,8 @@ tile         (noun) a unit of the Table
 Minefield    (noun) area of game, collection of tiles
 
 Coordinate system:
-Upper right corner is (0,0)
-General co-ordinate is (i,j)
+upper-left corner is (0,0)
+the general co-ordinate is (i,j)
 i increases in downward direction
 j increases in rightward direction
 
