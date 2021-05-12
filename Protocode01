@@ -72,7 +72,14 @@ class table
      
    void qmark(int x, int y)
     {
-      
+      qmark[x][y]=!qmark[x][y];
+      return();
+    }
+    
+    void flag(int x, int y)
+    {
+      flag[x][y]=!flag[x][y];
+      return();
     }
         
    void view()
@@ -108,10 +115,12 @@ int main()
    for (int z1=0;z<1;)
     {cin>>x>>y>>ch;                                                   \\write the codes for qmarks and flags as of now sweep is done and to be reviewed.
      if (ch=='s')
-     t1.sweeper(x,y);
+     {t1.sweeper(x,y);
+      t1.view();
+     }
      else if (ch=='?')
-     {
-     \\************************************************* Fill here.
+     {t1.qmark[x][y];
+      t1.view();
      }
      else if (ch=='f')
      {
