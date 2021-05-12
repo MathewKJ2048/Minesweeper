@@ -1,6 +1,6 @@
 #include <iostream>
-#include <stdlib.h>
-#include <conio.h>                                \\clrscr()
+#include <stdlib.h>                          \\????
+#include <conio.h>
 using namespace std;
 
 class table
@@ -115,21 +115,24 @@ int main()
    table t1(x,y);
    for (int z1=0;z<1;)
     {cin>>x>>y>>ch;                                                   \\write the codes for qmarks and flags as of now sweep is done and to be reviewed.
-     if (ch=='s')
-     {t1.sweeper(x,y);
-      t1.view();
-     }
-     else if (ch=='?')
-     {t1.qmark[x][y];
-      t1.view();
-     }
-     else if (ch=='f')
-     {t1.flag[x][y];
-      t1.view();
-     }
+     if (x<=10 && y<=10 && x>0 && y>0)
+     {x--; y--;
      
-     t1.view(x,y);
+      if (ch=='s')
+      {t1.sweeper(x,y);
+       t1.view();
+      }
+      else if (ch=='?')
+      {t1.qmark[x][y];
+       t1.view();
+      }
+      else if (ch=='f')
+      {t1.flag[x][y];
+       t1.view();
+      }
      
+      t1.view(x,y);
+     }
     }
   }
 }
