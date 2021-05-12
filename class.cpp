@@ -12,7 +12,7 @@ class Minefield
     bool loss;                   //becomes true when game is lost, false till then
     int num_swept;               //holds number of swept tiles
     
-    void set_table(int i_ex,int j_ex)   //mutator
+    void set_field(int i_ex,int j_ex)   //mutator
     {
         //fill this up
         //sets both mines and numbers
@@ -25,7 +25,7 @@ class Minefield
         r=rows;
         c=cols;
         num_mines=num;
-        set_table(i_ex,j_ex);
+        set_field(i_ex,j_ex);
     }
     
     
