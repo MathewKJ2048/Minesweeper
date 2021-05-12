@@ -66,12 +66,12 @@ class Minefield
     
     bool check_win()  //accessor
     {
-	    if(num_swept+num_mines==r*c)return true;
-	    else return false;
+         f(num_swept+num_mines==r*c)return true;
+         else return false;
     }
     bool check_loss()  //accessor
     {
-	    return loss;       
+	 return loss;       
     }
     char get_state_of(int i,int j)  //accessor
     {
