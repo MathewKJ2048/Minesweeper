@@ -31,23 +31,29 @@ class Minefield
     
     void flag(int i,int j)  //mutator
     {
+	is_q_marked[i][j]=false;
         if(!is_swept[i][j])
         is_flagged[i][j]=true;
+	//update state
     }
     void deflag(int i,int j)  //mutator
     {
         if(!is_swept[i][j])
         is_flagged[i][j]=false;
+	//update state
     }
     void q_mark(int i,int j)  //mutator
     {
+	is_flagged[i][i]=false;
         if(!is_swept[i][j])
         is_q_marked[i][j]=true;
+	//update state
     }
     void de_q_mark(int i,int j)  //mutator
     {
         if(!is_swept[i][j])
         is_q_marked[i][j]=false;
+	//update state
     }
     void sweep_from(int i, int j)  //mutator
     {
