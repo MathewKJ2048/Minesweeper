@@ -12,11 +12,126 @@ class Minefield
     bool loss;                   //becomes true when game is lost, false till then
     int num_swept;               //holds number of swept tiles
     
-    void set_field(int i_ex,int j_ex)   //mutator
-    {
-        //fill this up
-        //sets both mines and numbers
+   
+   void set_field(int i_ex,int j_ex)               //mutator //fill this up
+   {  
+	
+       for (int i = 0; i < r; i++)                                       //sets both mines and numbers
+         {
+           for (int j = 0; j < c; j++)
+           {
+            number[i][j] = 0;
+            }
+         }
+	   
+      for (int i = 0; i < r; i++)
+        {
+        for (int j = 0; j < c; j++)
+          {
+            is_mine[i][j] = 0;
+          }
+       }
+	   
+      
+    for (int i = 0; i < num_mines;)
+      {
+       
+        int l = rand() % r;
+        int m = rand() % c;
+        if (is_mine[l][m] == true || (l == i_ex && m == j_ex))
+            continue;
+        else
+        {
+            i++;
+            is_mine[l][m] = true;
+            number[l][m] = -1;
+
+            if (l == 0 && m == 0) // checking top left corner
+            {
+
+                number[1][0] += 1;
+
+                number[1][1] += 1;
+
+                number[0][1] += 1;
+            }
+            else if (l == 0 && m == c - 1) // checking top right corner
+            {
+                number[0][c - 2] += 1;
+                number[1][c - 2] += 1;
+                number[1][c - 1] += 1;
+            }
+            else if (l == r - 1 && m == 0) // checking bottom left corner
+            {
+                number[r - 2][0] += 1;
+                number[r - 2][1] += 1;
+                number[r - 1][1] += 1;
+            }
+            else if (l == r - 1 && m == c - 1) // checking bottom right corner
+            {
+                number[r - 1][c - 2] += 1;
+                number[r - 2][c - 2] += 1;
+                number[r - 2][c - 1] += 1;
+            }
+            else if (l == 0) // checking upper boundary tiles
+            {
+                number[l][m - 1] += 1;
+                number[l][m + 1] += 1;
+                number[l + 1][m - 1] += 1;
+                number[l + 1][m] += 1;
+                number[l + 1][m + 1] += 1;
+            }
+            else if (m == 0) // checking left boundary tiles
+            {
+                number[l - 1][m] += 1;
+                number[l - 1][m + 1] += 1;
+                number[l][m + 1] += 1;
+                number[l + 1][m] += 1;
+                number[l + 1][m + 1] += 1;
+            }
+            else if (m == c - 1) // checking right boundary tiles
+            {
+                number[l - 1][m - 1] += 1;
+                number[l - 1][m] += 1;
+                number[l][m - 1] += 1;
+                number[l + 1][m - 1] += 1;
+                number[l + 1][m] += 1;
+            }
+            else if (l == r - 1) // checking lower boundary tiles
+            {
+                number[l - 1][m - 1] += 1;
+                number[l - 1][m] += 1;
+                number[l - 1][m + 1] += 1;
+                number[l][m - 1] += 1;
+                number[l][m + 1] += 1;
+            }
+            else
+            {
+                number[l - 1][m - 1] += 1;
+                number[l - 1][m] += 1;
+                number[l - 1][m + 1] += 1;
+                number[l][m - 1] += 1;
+                number[l][m + 1] += 1;
+                number[l + 1][m - 1] += 1;
+                number[l + 1][m] += 1;
+                number[l + 1][m + 1] += 1;
+            }
+        }
     }
+       
+	   
+    for (int i = 0; i < r; i++)
+      {
+        for (int j = 0; j < c; j++)
+        {
+            if (is_mine[i][j] == true)
+            {
+                number[i][j] = -1;
+            }
+            
+        }
+    } 
+ }
     
     
     public:
