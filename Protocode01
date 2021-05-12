@@ -77,8 +77,12 @@ class table
     }
     
     void flag(int x, int y)
-    {
+    { if(flag[x][y]) {flags--;flag[x][y]=!flag[x][y];}
+      else if (flags<n)
+      {flags++;
       flag[x][y]=!flag[x][y];
+      }
+      else cout<<"Maximum number of flags reached";
       return();
     }
         
@@ -110,7 +114,13 @@ class table
       else return(0);
      }
      
-     
+     check win()
+     {if (sweepcount=c*r-n) return(1);
+     else if  (flags=n)
+       {if(flags[][]==mines[][]) return(1);
+       }
+     else return(0);
+     }
      
    };
    
