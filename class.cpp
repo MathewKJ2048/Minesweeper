@@ -11,7 +11,8 @@ class Minefield
     char state[15][15];          //store info which can be revealed to player
     bool loss;                   //becomes true when game is lost, false till then
     int num_swept;               //holds number of swept tiles
-    
+    int num_flagged;             //holds number of flags used
+	
     void set_field(int i_ex,int j_ex)   //mutator
     {
         //fill this up
@@ -32,34 +33,44 @@ class Minefield
     void flag(int i,int j)  //mutator
     {
 	is_q_marked[i][j]=false;
-        if(!is_swept[i][j])
-        is_flagged[i][j]=true;
-	//update state
+        if(!is_swept[i][j] && !is_flagged[i][j])
+	{
+	    num_flagged+=1;
+            is_flagged[i][j]=true;
+	    //update state
+	}
     }
     void deflag(int i,int j)  //mutator
     {
-        if(!is_swept[i][j])
-        is_flagged[i][j]=false;
-	//update state
+        if(!is_swept[i][j] && is_flagged[i][j])
+	{
+            is_flagged[i][j]=false;
+	    num_flagged-=1;
+	    //update state
+	}
     }
     void q_mark(int i,int j)  //mutator
     {
-	is_flagged[i][i]=false;
         if(!is_swept[i][j])
-        is_q_marked[i][j]=true;
-	//update state
+	{
+            if(is_flagged[i][j])deflag(i,j);
+            is_q_marked[i][j]=true;
+	    //update state
+	}	
     }
     void de_q_mark(int i,int j)  //mutator
     {
         if(!is_swept[i][j])
-        is_q_marked[i][j]=false;
-	//update state
+	{
+            is_q_marked[i][j]=false;
+	    //update state
+	}
     }
     void sweep_from(int i, int j)  //mutator
     {
 	//fill this up
 	//floodfill 0s
-	//deflag and de_q_mark swept squares manually
+	//deflag and de_q_mark squares before sweeping them using function
 	//ensure state is updated
 	//ensure num_swept is updated
     }
