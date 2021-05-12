@@ -52,7 +52,7 @@ class Minefield
     void clear(int i,int j)   //mutator
     {
 	 if(is_flagged[i][j]){flag[i][j]=false;num_flagged-=1;}
-	 if(is_qmark[i][j]){q_mark[i][j]=false;}
+	 if(is_q_marked[i][j]){q_mark[i][j]=false;}
     }
     void sweep_from(int i, int j)  //mutator
     {
