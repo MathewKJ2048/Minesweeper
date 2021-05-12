@@ -69,6 +69,11 @@ class table
       else sweep[x][y];
       return();         
      }
+     
+   void qmark(int x, int y)
+    {
+      
+    }
         
    void view()
      {for (int i=0; i<r; i++)
@@ -77,11 +82,15 @@ class table
          cout<<'+'<<endl;
          for (int j=0; j<c; j++)
           {cout<<'|';
-           if (vis[i][j])cout<<num[i][j];
+           if (vis[i][j]) 
+           {if (flag[i][j]) cout<<'P';
+            else if (qmark[i][j]) cout<<'?';
+            else cout<<num[i][j];
+           }
            else cout<<' ';
-         }
+          }
          cout<<'|';
-     }
+      }
       for (int j=0; j<c; j++)
          cout<<"+-";
       cout<<'+'<<endl;
