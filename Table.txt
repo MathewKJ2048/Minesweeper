@@ -3,7 +3,7 @@
 #include <conio.h>               
 using namespace std;
 
-class Table
+class Minefield
 {
     private:
     int r,c;                     //r,c - number of rows,columns
@@ -25,7 +25,7 @@ class Table
     
     
     public:
-    Table(int rows, int cols, int num, int i_ex, int j_ex)  //constructor
+    Minefield(int rows, int cols, int num, int i_ex, int j_ex)  //constructor
     {
         r=rows;
         c=cols;
