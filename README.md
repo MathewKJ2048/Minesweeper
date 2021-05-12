@@ -6,4 +6,4 @@ q_mark       (verb,noun) refers to question marks by user
 mine         (noun) an explosive device
 sweep        (verb) the act of checking for mines
 tile         (noun) a unit of the Table
-Table        (noun) area of game, collection of tiles
+Minefield    (noun) area of game, collection of tiles
