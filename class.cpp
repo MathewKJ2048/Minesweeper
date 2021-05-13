@@ -14,8 +14,8 @@ class Minefield
     short number[128][128];        //stores total number of mines in the eight surrounding tiles
     char state[128][128];          //stores info which can be revealed to player
     bool loss;                   //becomes true when game is lost, false till then
-    int num_swept;               //holds number of swept tiles
-    int num_flagged;             //holds number of flags used
+    int num_swept=0;               //holds number of swept tiles
+    int num_flagged=0;             //holds number of flags used
     //legend
     char flag_char = 'F';
     char q_mark_char = '?';
@@ -207,6 +207,7 @@ class Minefield
  	{
     		state[i][j]=mine_char;
     		loss=true;
+		num_swept++;
     		return;
   	}
   	//bomb tackled
@@ -214,6 +215,7 @@ class Minefield
   	if(number[i][j]!=0&&number[i][j]!=-10)
   	{
     		state[i][j]=(char)(48+number[i][j]);
+		num_swept++;
     		return;
    	}
    
@@ -233,7 +235,7 @@ class Minefield
 				if((number[1][0]==-10||number[1][1]==-10||number[0][1]==-10)&&number[0][0]!=-10)
 				{
           				is_swept[l][m]=true;
-          				state[i][j]=(char)(48+number[i][j]);
+          				state[l][m]=(char)(48+number[l][m]);
         			}
       			}
       			else if(l==0&&m==c-1) // checking top right corner
@@ -241,7 +243,7 @@ class Minefield
 				if((number[0][c-2]==-10||number[1][c-2]==-10||number[1][c-1]==-10)&&number[l][m]!=-10)
 				{
           				is_swept[l][m]=true;
-          				state[i][j]=(char)(48+number[i][j]);
+          				state[l][m]=(char)(48+number[l][m]);
         			}
       			}
       			else if(l==r-1&&m==0) // checking bottom left corner
@@ -249,7 +251,7 @@ class Minefield
 				if((number[r-2][0]==-10||number[r-2][1]==-10||number[r-1][1]==-10)&&number[l][m]!=-10)
 				{
           				is_swept[l][m]=true;
-          				state[i][j]=(char)(48+number[i][j]);
+          				state[l][m]=(char)(48+number[l][m]);
         			}
       			}
       			else if(l==r-1&&m==c-1) // checking bottom right corner
@@ -257,7 +259,7 @@ class Minefield
 				if((number[r-1][c-2]==-10||number[r-2][c-2]==-10||number[r-2][c-1]==-10)&&number[l][m]!=-10)
 				{
           				is_swept[l][m]=true;
-          				state[i][j]=(char)(48+number[i][j]);
+          				state[l][m]=(char)(48+number[l][m]);
         			}
       			}
       			else if(l==0) // checking upper boundary tiles
@@ -265,7 +267,7 @@ class Minefield
 				if((number[l][m-1]==-10||number[l][m+1]==-10||number[l+1][m-1]==-10||number[l+1][m]==-10||number[l+1][m+1]==-10)&&number[l][m]!=-10)
 				{
           				is_swept[l][m]=true;
-          				state[i][j]=(char)(48+number[i][j]);
+          				state[l][m]=(char)(48+number[l][m]);
         			}
       			}
       			else if(m==0) // checking left boundary tiles
@@ -273,7 +275,7 @@ class Minefield
 				if((number[l-1][m]==-10||number[l-1][m+1]==-10||number[l][m+1]==-10||number[l+1][m]==-10||number[l+1][m+1]==-10)&&number[l][m]!=-10)
 				{
           				is_swept[l][m]=true;
-          				state[i][j]=(char)(48+number[i][j]);
+          				state[l][m]=(char)(48+number[l][m]);
         			}
       			}
       			else if(m==c-1) // checking right boundary tiles
@@ -281,7 +283,7 @@ class Minefield
 				if((number[l-1][m-1]==-10||number[l-1][m]==-10||number[l][m-1]==-10||number[l+1][m-1]==-10||number[l+1][m]==-10)&&number[l][m]!=-10)
 				{
           				is_swept[l][m]=true;
-					state[i][j]=(char)(48+number[i][j]);
+					state[l][m]=(char)(48+number[l][m]);
 				}
 			}
       			else if(l==r-1) // checking lower boundary tiles
@@ -289,13 +291,13 @@ class Minefield
 				if((number[l-1][m-1]==-10||number[l-1][m]==-10||number[l-1][m+1]==-10||number[l][m-1]==-10||number[l][m+1]==-10)&&number[l][m]!=-10)
 				{
           				is_swept[l][m]=true;
-         				state[i][j]=(char)(48+number[i][j]);
+         				state[l][m]=(char)(48+number[l][m]);
         			}
       			}
       			else if((number[l-1][m-1]==-10||number[l-1][m]==-10||number[l-1][m+1]==-10||number[l][m-1]==-10||number[l][m+1]==-10||number[l+1][m-1]==-10||number[l+1][m]==-10||number[l+1][m+1]==-10)&&number[l][m]!=-10)
       			{
         			is_swept[l][m]=true;
-        			state[i][j]=(char)(48+number[i][j]);
+        			state[l][m]=(char)(48+number[l][m]);
       			}
 
       			if(is_swept[l][m])
