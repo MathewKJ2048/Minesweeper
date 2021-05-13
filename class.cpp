@@ -156,7 +156,7 @@ class Minefield
     
     
     public:
-    Minefield(int rows, int cols, int num, int i_ex, int j_ex)  //constructor
+    void Minefield(int rows, int cols, int num, int i_ex, int j_ex)  //constructor
     {
         r=rows;
         c=cols;
