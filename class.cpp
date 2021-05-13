@@ -186,8 +186,7 @@ class Minefield
     }
     void clear(int i,int j)   //mutator
     {
-        if(!is_swept[i][j])
-        {
+       
 	       if(is_flagged[i][j])
 	       {
 	           is_flagged[i][j]=false;
@@ -198,7 +197,7 @@ class Minefield
 	           is_q_marked[i][j]=false;
 	       }
 	       state[i][j]=unswept_char;
-        }
+        
     }
      void sweep_from(int i, int j) // the main function which tackles all inputs of position (which are not visited) other that flag and question mark
 	//assuming that flag and question mark functions are called before hand only and the given position cannot have those two.
@@ -302,11 +301,10 @@ class Minefield
       			if(is_swept[l][m])
 	    		num_swept++;
 
-      		if(is_flagged[l][m]&&state[l][m]!=flag_char)
-            	is_flagged[l][m]=false;
+      		if(is_flagged[l][m]&&state[l][m]!=flag_char || is_q_marked[l][m]&&state[l][m]!=q_mark_char)
+            	clear(l,m);
             
-      		if(is_q_marked[l][m]&&state[l][m]!=q_mark_char)
-            	is_q_marked[l][m]=false;
+      		
 
     		}//closing m loop
   	}// closing l loop
