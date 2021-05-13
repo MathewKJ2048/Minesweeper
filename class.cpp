@@ -7,12 +7,12 @@ class Minefield
     private:
     int r,c;                     //r,c - number of rows,columns
     int num_mines;               //total number of mines
-    bool is_mine[15][15];        //true if mine is at (i,j), false otherwise
-    bool is_swept[15][15];       //true if swept, false otherwise
-    bool is_q_marked[15][15];    //true if q_marked, false otherwise
-    bool is_flagged[15][15];     //true if flagged, false otherwise
-    short number[15][15];        //stores total number of mines in the eight surrounding tiles
-    char state[15][15];          //stores info which can be revealed to player
+    bool is_mine[128][128];        //true if mine is at (i,j), false otherwise
+    bool is_swept[128][128];       //true if swept, false otherwise
+    bool is_q_marked[128][128];    //true if q_marked, false otherwise
+    bool is_flagged[128][128];     //true if flagged, false otherwise
+    short number[128][128];        //stores total number of mines in the eight surrounding tiles
+    char state[128][128];          //stores info which can be revealed to player
     bool loss;                   //becomes true when game is lost, false till then
     int num_swept;               //holds number of swept tiles
     int num_flagged;             //holds number of flags used
