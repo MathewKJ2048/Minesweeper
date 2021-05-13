@@ -21,17 +21,10 @@ class Minefield
            for (int j = 0; j < c; j++)
            {
             number[i][j] = 0;
+	    is_mine[i][j] = 0;
             }
          }
-	   
-      for (int i = 0; i < r; i++)
-        {
-        for (int j = 0; j < c; j++)
-          {
-            is_mine[i][j] = 0;
-          }
-       }
-	   
+	
       
     for (int i = 0; i < num_mines;)
       {
@@ -120,18 +113,7 @@ class Minefield
     }
        
 	   
-    for (int i = 0; i < r; i++)
-      {
-        for (int j = 0; j < c; j++)
-        {
-            if (is_mine[i][j] == true)
-            {
-                number[i][j] = -1;
-            }
-            
-        }
-    } 
- }
+    
     
     
     public:
