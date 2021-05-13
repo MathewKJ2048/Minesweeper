@@ -35,8 +35,8 @@ class Minefield
     		return;
   	}
   	is_swept[i][j]=true;
-  	number[i][j]=-10; //changing the zeros to 10 (which helps us to identify the zeros which have opened)
-  	state[i][j] ='S'; //changing the state array which is printed at the end
+  	number[i][j]=-10; //changing the zeros to -10 (which helps us to identify the zeros which have opened)   -10 is purely a placeholder
+  	state[i][j] = swept_char; //changing the state array which is printed at the end
   	sweep_util(i-1,j);
   	sweep_util(i+1,j);
   	sweep_util(i,j-1);
@@ -206,7 +206,7 @@ class Minefield
 	is_swept[i][j]=true;
     	if(is_mine[i][j])
  	{
-    		state[i][j]='*';
+    		state[i][j]=mine_char;
     		loss=true;
     		return;
   	}
@@ -302,10 +302,10 @@ class Minefield
       			if(is_swept[l][m])
 	    		num_swept++;
 
-      		if(is_flagged[l][m]&&state[l][m]!='F')
+      		if(is_flagged[l][m]&&state[l][m]!=flag_char)
             	is_flagged[l][m]=false;
             
-      		if(is_q_marked[l][m]&&state[l][m]!='?')
+      		if(is_q_marked[l][m]&&state[l][m]!=q_mark_char)
             	is_q_marked[l][m]=false;
 
     		}//closing m loop
