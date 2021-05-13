@@ -18,6 +18,25 @@ class Minefield
         //fill this up
         //sets both mines and numbers
     }
+    void sweep_util(int i, int j) // a utility function which just accepts a zero location and flood fills all the zeros
+    {
+  	if(i<0||i>=r||j<0||j>=c)
+  	{
+    		return;
+  	}
+  
+  	if(number[i][j]!=0)
+  	{
+    		return;
+  	}
+  	is_swept[i][j]=true;
+  	number[i][j]=-10; //changing the zeros to 10 (which helps us to identify the zeros which have opened)
+  	state[i][j] ='S'; //changing the state array which is printed at the end
+  	sweep_util(i-1,j);
+  	sweep_util(i+1,j);
+  	sweep_util(i,j-1);
+  	sweep_util(i,j+1);
+    }
     
     
     public:
@@ -55,25 +74,7 @@ class Minefield
 	 if(is_q_marked[i][j]){is_q_marked[i][j]=false;}
     }
 	
-    void sweep_util(int i, int j) // a utility function which just accepts a zero location and flood fills all the zeros
-    {
-  	if(i<0||i>=r||j<0||j>=c)
-  	{
-    		return;
-  	}
-  
-  	if(number[i][j]!=0)
-  	{
-    		return;
-  	}
-  	is_swept[i][j]=true;
-  	number[i][j]=-10; //changing the zeros to 10 (which helps us to identify the zeros which have opened)
-  	state[i][j] ='S'; //changing the state array which is printed at the end
-  	sweep_util(i-1,j);
-  	sweep_util(i+1,j);
-  	sweep_util(i,j-1);
-  	sweep_util(i,j+1);
-    }
+    
 	
 	
     void sweep_from(int i, int j) // the main function which tackles all inputs of position (which are not visited) other that flag and question mark
