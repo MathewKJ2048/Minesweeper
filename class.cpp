@@ -68,7 +68,7 @@ class Minefield
   	}
   	is_swept[i][j]=true;
   	number[i][j]=-10; //changing the zeros to 10 (which helps us to identify the zeros which have opened)
-  	state[i][j] ='O'; //changing the toPrint array which is printed at the end
+  	state[i][j] ='S'; //changing the state array which is printed at the end
   	sweep_util(i-1,j);
   	sweep_util(i+1,j);
   	sweep_util(i,j-1);
@@ -82,7 +82,7 @@ class Minefield
 	is_swept[i][j]=true;
     	if(is_mine[i][j])
  	{
-    		state[i][j]='B';
+    		state[i][j]='*';
     		loss=true;
     		return;
   	}
