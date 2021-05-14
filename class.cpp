@@ -325,5 +325,5 @@ class Minefield
     {
         return state[i][j];
     }
-    int get_num_flags(){return num_flags;} 
+    int get_num_flags(){return num_flagged;} 
 };
