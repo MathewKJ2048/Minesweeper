@@ -1,6 +1,7 @@
-#include<conio.h>
+#include <iostream>
 #include<stdio.h>
 #include<stdlib.h>
+using namespace std;
 
 class Minefield
 {
@@ -19,11 +20,11 @@ class Minefield
     //legend
     char flag_char = 'F';
     char q_mark_char = '?';
-    char unswept_char = 'U';
-    char swept_char = 'S';
+    char unswept_char = ' ';
+    char swept_char = 'o';
     char mine_char = '*';
 
-    void sweep_util(int i, int j) // a utility function which just accepts a zero location and flood fills all the zeros
+    void sweep_util(int i, int j,int s) // a utility function which just accepts a zero location and flood fills all the zeros
     {
   	if(i<0||i>=r||j<0||j>=c)
   	{
@@ -35,12 +36,16 @@ class Minefield
     		return;
   	}
   	is_swept[i][j]=true;
-  	number[i][j]=-10; //changing the zeros to -10 (which helps us to identify the zeros which have opened)   -10 is purely a placeholder
+  	number[i][j]=s; //changing the zeros to s (which helps us to identify the zeros which have opened)   s is purely a placeholder
   	state[i][j] = swept_char; //changing the state array which is printed at the end
-  	sweep_util(i-1,j);
-  	sweep_util(i+1,j);
-  	sweep_util(i,j-1);
-  	sweep_util(i,j+1);
+  	sweep_util(i-1,j,s);
+  	sweep_util(i+1,j,s);
+  	sweep_util(i,j-1,s);
+  	sweep_util(i,j+1,s);
+    sweep_util(i-1,j-1,s);
+  	sweep_util(i+1,j+1,s);
+  	sweep_util(i+1,j-1,s);
+  	sweep_util(i-1,j+1,s);
     }
     void set_field(int i_ex,int j_ex)               //mutator
    {  
@@ -161,6 +166,10 @@ class Minefield
         r=rows;
         c=cols;
         num_mines=num;
+        for(int i=0;i<r;i++)
+        {
+            for(int j=0;j<c;j++)state[i][j]=unswept_char;
+        }
         set_field(i_ex,j_ex);
     }
     
@@ -202,6 +211,7 @@ class Minefield
      void sweep_from(int i, int j) // the main function which tackles all inputs of position (which are not visited) other that flag and question mark
 	//assuming that flag and question mark functions are called before hand only and the given position cannot have those two.
     {
+    
 	is_swept[i][j]=true;
     	if(is_mine[i][j])
  	{
@@ -212,7 +222,9 @@ class Minefield
   	}
   	//bomb tackled
   	// now handling numbers
-  	if(number[i][j]!=0&&number[i][j]!=-10)
+    int s = -9; // placeholder
+
+  	if(number[i][j]!=0&&number[i][j]!=s)
   	{
     		state[i][j]=(char)(48+number[i][j]);
 		num_swept++;
@@ -220,19 +232,19 @@ class Minefield
    	}
    
    	//now handling only remaining case i.e. 0
-   	sweep_util(i,j); //this will only flood fill zeroes
+   	sweep_util(i,j,s); //this will only flood fill zeroes
    
    	int l,m;
-
+    
    	num_swept=0; // making num_swept zero becasue i will be counting it again
-   	//now adding boundary elements of zero flood by checking neighbours of each element. If the neighbouring element is found to be -10 i.e. visited zero, it's neighbor must be visible
+   	//now adding boundary elements of zero flood by checking neighbours of each element. If the neighbouring element is found to be s i.e. visited zero, it's neighbor must be visible
    	for(l=0;l<r;l++)
    	{
     		for(m=0;m<c;m++)
     		{
       			if(l==0&&m==0) // checking top left corner
       			{ 
-				if((number[1][0]==-10||number[1][1]==-10||number[0][1]==-10)&&number[0][0]!=-10)
+				if((number[1][0]==s||number[1][1]==s||number[0][1]==s)&&number[0][0]!=s)
 				{
           				is_swept[l][m]=true;
           				state[l][m]=(char)(48+number[l][m]);
@@ -240,7 +252,7 @@ class Minefield
       			}
       			else if(l==0&&m==c-1) // checking top right corner
       			{ 
-				if((number[0][c-2]==-10||number[1][c-2]==-10||number[1][c-1]==-10)&&number[l][m]!=-10)
+				if((number[0][c-2]==s||number[1][c-2]==s||number[1][c-1]==s)&&number[l][m]!=s)
 				{
           				is_swept[l][m]=true;
           				state[l][m]=(char)(48+number[l][m]);
@@ -248,7 +260,7 @@ class Minefield
       			}
       			else if(l==r-1&&m==0) // checking bottom left corner
       			{ 
-				if((number[r-2][0]==-10||number[r-2][1]==-10||number[r-1][1]==-10)&&number[l][m]!=-10)
+				if((number[r-2][0]==s||number[r-2][1]==s||number[r-1][1]==s)&&number[l][m]!=s)
 				{
           				is_swept[l][m]=true;
           				state[l][m]=(char)(48+number[l][m]);
@@ -256,7 +268,7 @@ class Minefield
       			}
       			else if(l==r-1&&m==c-1) // checking bottom right corner
       			{ 
-				if((number[r-1][c-2]==-10||number[r-2][c-2]==-10||number[r-2][c-1]==-10)&&number[l][m]!=-10)
+				if((number[r-1][c-2]==s||number[r-2][c-2]==s||number[r-2][c-1]==s)&&number[l][m]!=s)
 				{
           				is_swept[l][m]=true;
           				state[l][m]=(char)(48+number[l][m]);
@@ -264,7 +276,7 @@ class Minefield
       			}
       			else if(l==0) // checking upper boundary tiles
       			{ 
-				if((number[l][m-1]==-10||number[l][m+1]==-10||number[l+1][m-1]==-10||number[l+1][m]==-10||number[l+1][m+1]==-10)&&number[l][m]!=-10)
+				if((number[l][m-1]==s||number[l][m+1]==s||number[l+1][m-1]==s||number[l+1][m]==s||number[l+1][m+1]==s)&&number[l][m]!=s)
 				{
           				is_swept[l][m]=true;
           				state[l][m]=(char)(48+number[l][m]);
@@ -272,7 +284,7 @@ class Minefield
       			}
       			else if(m==0) // checking left boundary tiles
       			{ 
-				if((number[l-1][m]==-10||number[l-1][m+1]==-10||number[l][m+1]==-10||number[l+1][m]==-10||number[l+1][m+1]==-10)&&number[l][m]!=-10)
+				if((number[l-1][m]==s||number[l-1][m+1]==s||number[l][m+1]==s||number[l+1][m]==s||number[l+1][m+1]==s)&&number[l][m]!=s)
 				{
           				is_swept[l][m]=true;
           				state[l][m]=(char)(48+number[l][m]);
@@ -280,7 +292,7 @@ class Minefield
       			}
       			else if(m==c-1) // checking right boundary tiles
       			{ 
-				if((number[l-1][m-1]==-10||number[l-1][m]==-10||number[l][m-1]==-10||number[l+1][m-1]==-10||number[l+1][m]==-10)&&number[l][m]!=-10)
+				if((number[l-1][m-1]==s||number[l-1][m]==s||number[l][m-1]==s||number[l+1][m-1]==s||number[l+1][m]==s)&&number[l][m]!=s)
 				{
           				is_swept[l][m]=true;
 					state[l][m]=(char)(48+number[l][m]);
@@ -288,13 +300,13 @@ class Minefield
 			}
       			else if(l==r-1) // checking lower boundary tiles
       			{ 
-				if((number[l-1][m-1]==-10||number[l-1][m]==-10||number[l-1][m+1]==-10||number[l][m-1]==-10||number[l][m+1]==-10)&&number[l][m]!=-10)
+				if((number[l-1][m-1]==s||number[l-1][m]==s||number[l-1][m+1]==s||number[l][m-1]==s||number[l][m+1]==s)&&number[l][m]!=s)
 				{
           				is_swept[l][m]=true;
          				state[l][m]=(char)(48+number[l][m]);
         			}
       			}
-      			else if((number[l-1][m-1]==-10||number[l-1][m]==-10||number[l-1][m+1]==-10||number[l][m-1]==-10||number[l][m+1]==-10||number[l+1][m-1]==-10||number[l+1][m]==-10||number[l+1][m+1]==-10)&&number[l][m]!=-10)
+      			else if((number[l-1][m-1]==s||number[l-1][m]==s||number[l-1][m+1]==s||number[l][m-1]==s||number[l][m+1]==s||number[l+1][m-1]==s||number[l+1][m]==s||number[l+1][m+1]==s)&&number[l][m]!=s)
       			{
         			is_swept[l][m]=true;
         			state[l][m]=(char)(48+number[l][m]);
@@ -304,7 +316,7 @@ class Minefield
 	    		num_swept++;
 
       		if(is_flagged[l][m]&&state[l][m]!=flag_char || is_q_marked[l][m]&&state[l][m]!=q_mark_char)
-            	clear(l,m);
+            	{clear(l,m);state[l][m]=swept_char;}
             
       		
 
@@ -325,5 +337,91 @@ class Minefield
     {
         return state[i][j];
     }
-    int get_num_flags(){return num_flagged;} 
+    int get_num_flags()   //accessor
+    {
+        return num_flagged;
+    }
+    int get_num_rows()   //accessor 
+    {
+        return r;
+    }
+    int get_num_cols()   //accessor
+    {
+        return c;
+    }
+    int get_num_of(int i,int j){return number[i][j];}
 };
+
+void clear()
+{
+    cout<<"\033[2J\033[1;1H";
+}
+void print(Minefield m)
+{
+    int r=m.get_num_rows();
+    int c=m.get_num_cols();
+    for(int i=0;i<r;i++)
+    {
+        cout<<" ";
+        for(int j=0;j<c;j++)
+        {
+            cout<<"+---";
+        }
+        cout<<'+'<<endl;
+        cout<<" | ";
+        for(int j=0;j<c;j++)
+        {
+            cout<<m.get_state_of(i,j)<<" | ";
+        } 
+        cout<<"                     ";
+        for(int j=0;j<c;j++)
+        {
+            if(m.get_num_of(i,j)>=0)cout<<" ";
+            cout<<m.get_num_of(i,j)<<" ";
+            
+        }
+        cout<<endl;
+    }
+    cout<<" ";
+    for(int j=0;j<c;j++)
+        {
+            cout<<"+---";
+        }
+    cout<<"+";
+}
+int main()
+{
+    clear();
+    char dummy;
+    cout<<"choose dimensions:\n";
+    int r,c;
+    cin>>r;
+    cin>>c;
+    cout<<"\nchoose initial co-ordinates\n";
+    int i,j;
+    cin>>i;
+    cin>>j;
+    //determine number of mines
+    Minefield m = Minefield(r,c,(r+c),i,j);
+    cin>>dummy;
+
+    char input;
+    do
+    {
+        clear();
+        print(m);
+        cout<<'\n';
+        cin>>input;
+        if(input == 'e')break;
+        cin>>i>>j;
+        if(input == 'f')m.flag(i,j);
+        else if(input == 'q')m.q_mark(i,j);
+        else if(input == 's')m.sweep_from(i,j);
+        else if(input == 'c')m.clear(i,j);
+    } while(true);
+
+    clear();
+    cout<<"End of test";
+    cin>>dummy;
+    return 0;
+}
