@@ -360,20 +360,36 @@ void print(Minefield m)
 {
     int r=m.get_num_rows();
     int c=m.get_num_cols();
+    cout<<"\n";
     for(int i=0;i<r;i++)
     {
-        cout<<" ";
+        if(i==0)
+        {
+            cout<<"       ";
+            for(int x=0;x<c;x++)
+            {
+                if(x<10) cout<<x<<"   ";
+                else cout<<x<<"  ";
+            }
+            cout<<"\n";
+        }
+        // if(i<10) cout<<"  "<<i<<" ";
+        // else cout<<" "<<i<<" ";
+        cout<<"     ";
         for(int j=0;j<c;j++)
         {
             cout<<"+---";
         }
         cout<<'+'<<endl;
-        cout<<" | ";
+        if(i<10) cout<<"   "<<i<<" | ";
+        else cout<<"  "<<i<<" | ";
+
+        // cout<<"    | ";
         for(int j=0;j<c;j++)
         {
             cout<<m.get_state_of(i,j)<<" | ";
         } 
-        cout<<"                     ";
+        cout<<"             ";
         for(int j=0;j<c;j++)
         {
             if(m.get_num_of(i,j)>=0)cout<<" ";
@@ -381,8 +397,10 @@ void print(Minefield m)
             
         }
         cout<<endl;
+        if(i==r-1) cout<<"   ";
+
     }
-    cout<<" ";
+    cout<<"  ";
     for(int j=0;j<c;j++)
         {
             cout<<"+---";
