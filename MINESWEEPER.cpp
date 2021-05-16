@@ -35,7 +35,7 @@ private:
         {
             return;
         }
-        is_swept[i][j] = true;
+
         number[i][j] = s;         //changing the zeros to s (which helps us to identify the zeros which have opened)   s is purely a placeholder
         state[i][j] = swept_char; //changing the state array which is printed at the end
         sweep_util(i - 1, j, s);
@@ -197,18 +197,18 @@ public:
         {
             is_flagged[i][j] = false;
             num_flagged -= 1;
+            state[i][j] = unswept_char;
         }
         if (is_q_marked[i][j])
         {
             is_q_marked[i][j] = false;
+            state[i][j] = unswept_char;
         }
-        state[i][j] = unswept_char;
     }
     void sweep_from(int i, int j) // the main function which tackles all inputs of position (which are not visited) other that flag and question mark
                                   //assuming that flag and question mark functions are called before hand only and the given position cannot have those two.
     {
 
-        is_swept[i][j] = true;
         if (is_mine[i][j])
         {
             state[i][j] = mine_char;
@@ -222,6 +222,9 @@ public:
 
         if (number[i][j] != 0 && number[i][j] != s)
         {
+            if (state[i][j] == flag_char || state[i][j] == q_mark_char)
+                clear(i, j);
+
             state[i][j] = (char)(48 + number[i][j]);
             num_swept++;
             return;
@@ -238,11 +241,17 @@ public:
         {
             for (m = 0; m < c; m++)
             {
+                bool is_tile_flagged = false;
+                bool is_tile_q_mark = false;
+                if (state[l][m] == flag_char)
+                    is_tile_flagged = true;
+                if (state[l][m] == q_mark_char)
+                    is_tile_q_mark - true;
                 if (l == 0 && m == 0) // checking top left corner
                 {
                     if ((number[1][0] == s || number[1][1] == s || number[0][1] == s) && number[0][0] != s)
                     {
-                        is_swept[l][m] = true;
+
                         state[l][m] = (char)(48 + number[l][m]);
                     }
                 }
@@ -250,7 +259,7 @@ public:
                 {
                     if ((number[0][c - 2] == s || number[1][c - 2] == s || number[1][c - 1] == s) && number[l][m] != s)
                     {
-                        is_swept[l][m] = true;
+
                         state[l][m] = (char)(48 + number[l][m]);
                     }
                 }
@@ -258,7 +267,7 @@ public:
                 {
                     if ((number[r - 2][0] == s || number[r - 2][1] == s || number[r - 1][1] == s) && number[l][m] != s)
                     {
-                        is_swept[l][m] = true;
+
                         state[l][m] = (char)(48 + number[l][m]);
                     }
                 }
@@ -266,7 +275,7 @@ public:
                 {
                     if ((number[r - 1][c - 2] == s || number[r - 2][c - 2] == s || number[r - 2][c - 1] == s) && number[l][m] != s)
                     {
-                        is_swept[l][m] = true;
+
                         state[l][m] = (char)(48 + number[l][m]);
                     }
                 }
@@ -274,7 +283,7 @@ public:
                 {
                     if ((number[l][m - 1] == s || number[l][m + 1] == s || number[l + 1][m - 1] == s || number[l + 1][m] == s || number[l + 1][m + 1] == s) && number[l][m] != s)
                     {
-                        is_swept[l][m] = true;
+
                         state[l][m] = (char)(48 + number[l][m]);
                     }
                 }
@@ -282,7 +291,7 @@ public:
                 {
                     if ((number[l - 1][m] == s || number[l - 1][m + 1] == s || number[l][m + 1] == s || number[l + 1][m] == s || number[l + 1][m + 1] == s) && number[l][m] != s)
                     {
-                        is_swept[l][m] = true;
+
                         state[l][m] = (char)(48 + number[l][m]);
                     }
                 }
@@ -290,7 +299,7 @@ public:
                 {
                     if ((number[l - 1][m - 1] == s || number[l - 1][m] == s || number[l][m - 1] == s || number[l + 1][m - 1] == s || number[l + 1][m] == s) && number[l][m] != s)
                     {
-                        is_swept[l][m] = true;
+
                         state[l][m] = (char)(48 + number[l][m]);
                     }
                 }
@@ -298,23 +307,27 @@ public:
                 {
                     if ((number[l - 1][m - 1] == s || number[l - 1][m] == s || number[l - 1][m + 1] == s || number[l][m - 1] == s || number[l][m + 1] == s) && number[l][m] != s)
                     {
-                        is_swept[l][m] = true;
+
                         state[l][m] = (char)(48 + number[l][m]);
                     }
                 }
                 else if ((number[l - 1][m - 1] == s || number[l - 1][m] == s || number[l - 1][m + 1] == s || number[l][m - 1] == s || number[l][m + 1] == s || number[l + 1][m - 1] == s || number[l + 1][m] == s || number[l + 1][m + 1] == s) && number[l][m] != s)
                 {
-                    is_swept[l][m] = true;
+
                     state[l][m] = (char)(48 + number[l][m]);
                 }
 
-                if (is_swept[l][m])
+                if (state[l][m] != unswept_char && state[l][m] != q_mark_char && state[l][m] != flag_char)
                     num_swept++;
 
-                if (is_flagged[l][m] && state[l][m] != flag_char || is_q_marked[l][m] && state[l][m] != q_mark_char)
+                if (is_tile_flagged && state[l][m] != flag_char || is_tile_q_mark && state[l][m] != q_mark_char)
                 {
                     clear(l, m);
-                    state[l][m] = swept_char;
+
+                    if (number[l][m] == s)
+                        state[l][m] = swept_char;
+                    else
+                        state[l][m] = (char)(48 + number[l][m]);
                 }
 
             } //closing m loop
@@ -348,6 +361,11 @@ public:
     {
         return c;
     }
+    int get_num_swept()
+    {
+        return num_swept;
+    }
+
     int get_num_of(int i, int j) { return number[i][j]; }
 };
 
@@ -431,6 +449,9 @@ int main()
     {
         clear();
         print(m);
+        cout << endl;
+        cout << "Number of tiles swept = " << m.get_num_swept() << endl;
+        cout << "Number of flags = " << m.get_num_flags() << endl;
         cout << '\n';
         cin >> input;
         if (input == 'e')
