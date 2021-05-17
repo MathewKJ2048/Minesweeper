@@ -217,6 +217,7 @@ class Minefield
 	
     	if(is_mine[i][j])
  	{
+		clear(i,j);
     		state[i][j]=mine_char;
     		loss=true;
 		num_swept++;
